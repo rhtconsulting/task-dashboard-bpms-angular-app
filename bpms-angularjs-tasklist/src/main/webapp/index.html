@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Red Hat BPM Suite AngularJS Tasklist</title>
+    <meta name="description" content="">
+
+    <!-- custom CSS: imports other required stylesheets -->
+    <link href="css/style.css" rel="stylesheet prefetch">
+</head>
+
+<body>
+    <div class="container" ng-cloak>
+        <div class="navbar navbar-default">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Red Hat BPM Suite AngularJS Tasklist</a>
+            </div>
+        </div>
+
+        <div ng-controller="myController">
+            <h3>My Tasklist</h3>
+            <table ng-table="tableParams" show-filter="true" class="table table-bordered table-striped">
+                <tr ng-repeat="task in $data track by task.id">
+                    <td title="'Id'" filter="{taskId:'text'}">{{task.id}}</td>
+                    <td title="'Name'">{{task.name}}</td>
+                    <td title="'Status'" filter="{status:'text'}">{{task.status}}</td>
+                    <td title="'Created On'">{{task.createdOn | date:'medium'}}</td>
+                    <td title="'Process Instance Id'" filter="{processInstanceId:'text'}">{{task.processInstanceId}}</td>
+                    <td title="'Process Id'" >{{task.processId}}</td>
+                    <td title="'Deployment Id'">{{task.deploymentId}}</td>
+                </tr>
+            </table>
+            <form class="form-inline">
+                <div class="form-group">
+                    <select class="form-control input-sm" ng-model="selectedFilter" ng-options="filter.filter as filter.label for filter in filters">
+                        <option value="">Select a Filter</option>
+                    </select>
+                    <button ng-click="tableParams.reload()" class="btn btn-default btn-sm">Reload Table</button>
+                </div>
+            </form>
+        </div>
+
+
+    </div>
+    <!-- JavaScript ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script>
+        var $w = window;
+        $w.$myapp = $w.$myapp || {};
+        $w.$myapp.deps = $w.$myapp.deps || [];
+        $w.$myapp.deps.push('basicApp');
+
+        $w.$myapp.ngApps = $w.$myapp.ngApps || [];
+        $w.$myapp.ngApps.push('bpmsTasklist');
+    </script>
+    <script src="js/vendor/require.min.js" data-main="js/main"></script>
+</body>
+
+</html>
